@@ -1,0 +1,141 @@
+Warm‑up: Simple SELECT
+	1	List all employees.
+	        SELECT * FROM Employees;
+
+	2	Show only employee first name, last name, and salary.
+	        SELECT Firstname, Lastname, Salary FROM Employees;
+
+	3	List all students’ names and GPA ordered by GPA descending.
+	        SELECT Firstname, Lastname, GPA FROM Students ORDER BY GPA DESC;
+
+	4	List all products with price less than 40.
+	        SELECT ProductID, Description, Price FROM Products WHERE Price < 40;
+
+Filtering with WHERE
+	5	Employees in California.
+	        SELECT * FROM Employees WHERE State = 'California';
+
+	6	Employees with salary greater than 80,000.
+	        SELECT Firstname, Lastname, Salary FROM Employees WHERE Salary > 80000;
+
+	7	Students from Arizona with GPA at least 3.5.
+	        SELECT * FROM Students WHERE State = 'Arizona' AND GPA >= 3.5;
+
+	8	Instructors who have training.
+	        SELECT * FROM Instructors WHERE Training = TRUE;
+
+	9	Products with price between 30 and 60 (inclusive).
+	        SELECT * FROM Products WHERE Price BETWEEN 30 AND 60;
+
+	10	Customers who live in Arizona.
+	        SELECT * FROM Customers WHERE State = 'Arizona';
+
+Sorting and Limiting
+	11	List employees ordered by salary descending.
+	        SELECT Firstname, Lastname, Salary FROM Employees ORDER BY Salary DESC;
+
+	12	List the top 3 highest‑paid employees.
+	        SELECT Firstname, Lastname, Salary FROM Employees ORDER BY Salary DESC LIMIT 3;
+
+	13	List products ordered by price then description.
+	        SELECT * FROM Products ORDER BY Price, Description;
+
+Basic Aggregates
+	14	Average salary of all employees.
+	        SELECT AVG(Salary) AS AvgSalary FROM Employees;
+
+	15	Average salary by region.
+	        SELECT Region, AVG(Salary) AS AvgSalary FROM Employees GROUP BY Region;
+
+	16	Count of students per state.
+	        SELECT State, COUNT(*) AS NumStudents FROM Students GROUP BY State;
+
+	17	Total sales amount in the Sales table.
+	        SELECT SUM(Amount) AS TotalSales FROM Sales;
+
+	18	Total quantity ordered per product.
+	        SELECT ProductID, SUM(Quanity) AS TotalQuantity FROM Orders GROUP BY ProductID;
+
+GROUP BY + HAVING
+	19	Regions where average employee salary is over 75,000.
+	        SELECT Region, AVG(Salary) AS AvgSalary FROM Employees GROUP BY Region HAVING AVG(Salary) > 75000;
+
+	20	States with more than 1 student.
+	        SELECT State, COUNT(*) AS NumStudents FROM Students GROUP BY State HAVING COUNT(*) > 1;
+
+	21	Customers who have ordered more than 50 total items.
+	        SELECT CustomerID, SUM(Quanity) AS TotalQty FROM Orders GROUP BY CustomerID HAVING SUM(Quanity) > 50;
+
+Joins (Inner, Left)
+	22	Orders with product descriptions (INNER JOIN).
+	        SELECT o.OrderID, o.Quanity, p.Description, o.Price FROM Orders o INNER JOIN Products p ON o.ProductID = p.ProductID;
+
+	23	Orders with customer names.
+	        SELECT o.OrderID, c.Firstname, c.Lastname, o.Quanity, o.Price FROM Orders o INNER JOIN Customers c ON o.CustomerID = c.CustomerID;
+
+	24	Sales with corresponding employee names (if EmployeeID matches).
+	        SELECT s.SalesID, e.Firstname, e.Lastname, s.Region, s.Amount FROM Sales s INNER JOIN Employees e ON s.EmployeeID = e.EmployeeID;
+
+	25	Students with instructor state (Students → Instructors by name).
+	        SELECT st.Firstname, st.Lastname, st.GPA, i.State AS InstructorState FROM Students st INNER JOIN Instructors i ON st.Instructor = i.Name;
+
+	26	LEFT JOIN to find customers who have never ordered anything.
+	        SELECT c.CustomerID, c.Firstname, c.Lastname FROM Customers c LEFT JOIN Orders o ON c.CustomerID = o.CustomerID WHERE o.CustomerID IS NULL;
+
+Subqueries
+	27	Employees with salary above the overall average.
+	        SELECT Firstname, Lastname, Salary FROM Employees WHERE Salary > (SELECT AVG(Salary) FROM Employees);
+
+	28	Students whose GPA is above the average GPA of all students.
+    	    SELECT Firstname, Lastname, GPA FROM Students WHERE GPA > (SELECT AVG(GPA) FROM Students);
+
+	29	Customers who have placed at least one order for product 1.
+	        SELECT * FROM Customers WHERE CustomerID IN (SELECT DISTINCT CustomerID FROM Orders WHERE ProductID = 1);
+
+	30	Products that have never been ordered.
+	        SELECT * FROM Products WHERE ProductID NOT IN (SELECT DISTINCT ProductID FROM Orders);
+
+Updates, Inserts, Deletes (Practice on Backup Tables)
+
+	31	Copy all employees into EmployeesBackup.
+	        INSERT INTO EmployeesBackup SELECT * FROM Employees;
+
+	32	Give everyone in EmployeesBackup a 5% raise.
+	        UPDATE EmployeesBackup SET Salary = Salary * 1.05;
+
+	33	Set bonus to 1000 for Marketing team in EmployeesBackup.
+	        UPDATE EmployeesBackup SET Bonus = 1000 WHERE Team = 'Marketing';
+
+	34	Copy all students into StudentsBackup.
+	        INSERT INTO StudentsBackup SELECT * FROM Students;
+
+	35	Mark StudentsBackup records with GPA below 3.0 as 'Probation'.
+	        UPDATE StudentsBackup SET Status = 'Probation' WHERE GPA < 3.0;
+
+	36	Delete all EmployeesBackup rows where Years < 2.
+	        DELETE FROM EmployeesBackup WHERE Years < 2;
+
+
+Five Challenges:
+You need to figure out what query to write and provide the results.
+
+Scenario 1 – Sales Region Staffing
+The sales director wants to know if every region that appears in the Sales table has at least one employee assigned to that same region in the Employees table.
+Challenge: Write a query that lists any regions that appear in Sales but do not appear in Employees.Region. If your result is empty, it means all sales regions are staffed.
+
+Scenario 2 – Duplicate Customer Addresses
+A marketing analyst suspects some duplicate households in the Customers table where different customers share the exact same address.
+Challenge: Write a query that finds all street/city/state/zip combinations that belong to more than one customer, and show the address along with how many customers share it.
+
+Scenario 3 – Instructor Coverage for States
+The academic coordinator wants to check whether every state that has at least one student also has at least one instructor located in that state.
+Challenge: Write a query that lists any states that appear in Students.State but do not appear in Instructors.State.
+
+Scenario 4 – Cross-Selling Opportunity
+The product manager believes that customers who buy higher-priced items (Price ≥ 50 in Orders) might be good candidates for a premium upsell.
+Challenge: Write a query that returns each customer who has at least one order where Price >= 50, along with the count of such high-priced orders for that customer.
+
+
+Scenario 5 – Underutilized Employees
+HR wants to find employees who never appear in the Sales table, so they can investigate whether those employees are mis-assigned or underutilized.
+Challenge: Write a query that lists all employees from Employees who do not have any matching row in Sales (based on EmployeeID).
