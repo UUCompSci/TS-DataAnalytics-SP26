@@ -1,120 +1,375 @@
 Warm‑up: Simple SELECT
 	1	List all employees.
 	        SELECT * FROM Employees;
+| EmployeeID | Firstname | Lastname | Region  | Phone        | Email    | City        | State      | Years | Salary | Team      | Gender | Bonus |
++------------+-----------+----------+---------+--------------+----------+-------------+------------+-------+--------+-----------+--------+-------+
+|          1 | Joe       | Johnson  | West    | 619-555-1212 | jj@x.com | Los Angeles | California |    12 |  78000 | Marketing | 0      |     0 |
+|          2 | Betty     | Allen    | West    | 619-555-1213 | ba@x.com | Los Angeles | California |    14 |  68000 | Sales     | 1      |     0 |
+|          3 | Billy     | Johnson  | West    | 510-555-1213 | bj@x.com | Los Angeles | California |     1 |  88000 | Marketing | 0      |     0 |
+|          4 | Alice     | Lewis    | West    | 210-555-1213 | al@x.com | Phoenix     | Arizona    |    12 |  28000 | Sales     | 1      |     0 |
+|          5 | Angela    | Jones    | Midwest | 310-555-1213 | aj@x.com | Detroit     | Michigan   |     5 |  85000 | Marketing | 1      |     0 |
+|          6 | Joey      | Smith    | East    | 212-555-1213 | js@x.com | New York    | New York   |     7 |  88000 | Sales     | 0      |     0 |
+|          7 | Louis     | Smith    | East    | 212-555-1234 | ls@x.com | Los Angeles | California |     1 |  29000 | Marketing | 0      |     0 |
+|          8 | William   | Jones    | West    | 206-555-1213 | wj@x.com | Seattle     | Washington |    12 |  55000 | Sales     | 0      |     0 |
++------------+-----------+----------+---------+--------------+----------+-------------+------------+-------+--------+-----------+--------+-------+
+
 
 	2	Show only employee first name, last name, and salary.
 	        SELECT Firstname, Lastname, Salary FROM Employees;
+| Firstname | Lastname | Salary |
++-----------+----------+--------+
+| Joe       | Johnson  |  78000 |
+| Betty     | Allen    |  68000 |
+| Billy     | Johnson  |  88000 |
+| Alice     | Lewis    |  28000 |
+| Angela    | Jones    |  85000 |
+| Joey      | Smith    |  88000 |
+| Louis     | Smith    |  29000 |
+| William   | Jones    |  55000 |
+
 
 	3	List all students’ names and GPA ordered by GPA descending.
 	        SELECT Firstname, Lastname, GPA FROM Students ORDER BY GPA DESC;
++-----------+----------+------+
+| Firstname | Lastname | GPA  |
++-----------+----------+------+
+| Julie     | Smith    |    4 |
+| Alonzo    | Johnson  |  3.8 |
+| Billy     | Jones    |  3.7 |
+| Mary      | Gibbons  |  3.7 |
+| Jim       | Davis    |  3.4 |
+| Linda     | Smythe   |  2.4 |
++-----------+----------+------+
+
 
 	4	List all products with price less than 40.
 	        SELECT ProductID, Description, Price FROM Products WHERE Price < 40;
++-----------+-------------------+-------+
+| ProductID | Description       | Price |
++-----------+-------------------+-------+
+|         1 | Computer Book     | 19.95 |
+|         2 | Bluetooth Mouse   | 19.95 |
+|         4 | Wireless Keyboard | 39.95 |
+|         6 | Network Router    | 39.95 |
+|         7 | Flash Drive       | 29.95 |
++-----------+-------------------+-------+
+
+
 
 Filtering with WHERE
 	5	Employees in California.
 	        SELECT * FROM Employees WHERE State = 'California';
++------------+-----------+----------+--------+--------------+----------+-------------+------------+-------+--------+-----------+--------+-------+
+| EmployeeID | Firstname | Lastname | Region | Phone        | Email    | City        | State      | Years | Salary | Team      | Gender | Bonus |
++------------+-----------+----------+--------+--------------+----------+-------------+------------+-------+--------+-----------+--------+-------+
+|          1 | Joe       | Johnson  | West   | 619-555-1212 | jj@x.com | Los Angeles | California |    12 |  78000 | Marketing | 0      |     0 |
+|          2 | Betty     | Allen    | West   | 619-555-1213 | ba@x.com | Los Angeles | California |    14 |  68000 | Sales     | 1      |     0 |
+|          3 | Billy     | Johnson  | West   | 510-555-1213 | bj@x.com | Los Angeles | California |     1 |  88000 | Marketing | 0      |     0 |
+|          7 | Louis     | Smith    | East   | 212-555-1234 | ls@x.com | Los Angeles | California |     1 |  29000 | Marketing | 0      |     0 |
++------------+-----------+----------+--------+--------------+----------+-------------+------------+-------+--------+-----------+--------+-------+
+
 
 	6	Employees with salary greater than 80,000.
 	        SELECT Firstname, Lastname, Salary FROM Employees WHERE Salary > 80000;
++-----------+----------+--------+
+| Firstname | Lastname | Salary |
++-----------+----------+--------+
+| Billy     | Johnson  |  88000 |
+| Angela    | Jones    |  85000 |
+| Joey      | Smith    |  88000 |
++-----------+----------+--------+
 
 	7	Students from Arizona with GPA at least 3.5.
 	        SELECT * FROM Students WHERE State = 'Arizona' AND GPA >= 3.5;
+Empty set (0.00 sec)
+
 
 	8	Instructors who have training.
 	        SELECT * FROM Instructors WHERE Training = TRUE;
++--------------+--------+----------+-------------+---------------+--------+----------+
+| InstructorID | Name   | State    | Speciality  | University    | Office | Training |
++--------------+--------+----------+-------------+---------------+--------+----------+
+|            1 | Smith  | New York | English     | None          | None   |        1 |
+|            2 | Davis  | Arizona  | Engineering | Arizona State | C-14   |        1 |
+|            4 | Brooks | Florida  | Biology     | FIT           | 113    |        1 |
++--------------+--------+----------+-------------+---------------+--------+----------+
 
 	9	Products with price between 30 and 60 (inclusive).
 	        SELECT * FROM Products WHERE Price BETWEEN 30 AND 60;
++-----------+-------------------+-------+
+| ProductID | Description       | Price |
++-----------+-------------------+-------+
+|         4 | Wireless Keyboard | 39.95 |
+|         5 | WiFi Booster      | 49.95 |
+|         6 | Network Router    | 39.95 |
++-----------+-------------------+-------+
 
 	10	Customers who live in Arizona.
 	        SELECT * FROM Customers WHERE State = 'Arizona';
++------------+-----------+----------+-----------------+-----------+---------+-------+--------------+
+| CustomerID | Firstname | Lastname | Street          | City      | State   | Zip   | Phone        |
++------------+-----------+----------+-----------------+-----------+---------+-------+--------------+
+|          1 | Kris      | Smith    | 123 Main        | Phoenix   | Arizona | 85262 | 602-555-1212 |
+|          2 | Tim       | Davis    | 345 Thunderbird | Prescott  | Arizona | 86305 | 928-555-1212 |
+|          3 | Debbie    | Smith    | 123 Main        | Phoenix   | Arizona | 85262 | 602-555-1212 |
+|          6 | Louis     | Johnson  | 4466 Mason St   | Flagstaff | Arizona | 86001 | 928-555-2212 |
++------------+-----------+----------+-----------------+-----------+---------+-------+--------------+
 
 Sorting and Limiting
 	11	List employees ordered by salary descending.
 	        SELECT Firstname, Lastname, Salary FROM Employees ORDER BY Salary DESC;
+| Firstname | Lastname | Salary |
++-----------+----------+--------+
+| Billy     | Johnson  |  88000 |
+| Joey      | Smith    |  88000 |
+| Angela    | Jones    |  85000 |
+| Joe       | Johnson  |  78000 |
+| Betty     | Allen    |  68000 |
+| William   | Jones    |  55000 |
+| Louis     | Smith    |  29000 |
+| Alice     | Lewis    |  28000 |
++-----------+----------+--------+
 
 	12	List the top 3 highest‑paid employees.
 	        SELECT Firstname, Lastname, Salary FROM Employees ORDER BY Salary DESC LIMIT 3;
++-----------+----------+--------+
+| Firstname | Lastname | Salary |
++-----------+----------+--------+
+| Joey      | Smith    |  88000 |
+| Billy     | Johnson  |  88000 |
+| Angela    | Jones    |  85000 |
++-----------+----------+--------+
 
 	13	List products ordered by price then description.
 	        SELECT * FROM Products ORDER BY Price, Description;
++-----------+-------------------+--------+
+| ProductID | Description       | Price  |
++-----------+-------------------+--------+
+|         2 | Bluetooth Mouse   |  19.95 |
+|         1 | Computer Book     |  19.95 |
+|         7 | Flash Drive       |  29.95 |
+|         6 | Network Router    |  39.95 |
+|         4 | Wireless Keyboard |  39.95 |
+|         5 | WiFi Booster      |  49.95 |
+|         3 | 24-inch Monitor   | 109.95 |
++-----------+-------------------+--------+
 
 Basic Aggregates
 	14	Average salary of all employees.
 	        SELECT AVG(Salary) AS AvgSalary FROM Employees;
++-----------+
+| AvgSalary |
++-----------+
+|     64875 |
++-----------+
 
 	15	Average salary by region.
 	        SELECT Region, AVG(Salary) AS AvgSalary FROM Employees GROUP BY Region;
++---------+-----------+
+| Region  | AvgSalary |
++---------+-----------+
+| West    |     63400 |
+| Midwest |     85000 |
+| East    |     58500 |
 
 	16	Count of students per state.
 	        SELECT State, COUNT(*) AS NumStudents FROM Students GROUP BY State;
++---------+-----------+
+| Region  | AvgSalary |
++---------+-----------+
+| West    |     63400 |
+| Midwest |     85000 |
+| East    |     58500 |
 
 	17	Total sales amount in the Sales table.
 	        SELECT SUM(Amount) AS TotalSales FROM Sales;
++-------------------+
+| TotalSales        |
++-------------------+
+| 369.5000066757202 |
++-------------------+
 
 	18	Total quantity ordered per product.
 	        SELECT ProductID, SUM(Quanity) AS TotalQuantity FROM Orders GROUP BY ProductID;
++-----------+---------------+
+| ProductID | TotalQuantity |
++-----------+---------------+
+|         1 |            35 |
+|         2 |            60 |
+|         3 |            49 |
+|         4 |            71 |
++-----------+---------------+
 
 GROUP BY + HAVING
 	19	Regions where average employee salary is over 75,000.
 	        SELECT Region, AVG(Salary) AS AvgSalary FROM Employees GROUP BY Region HAVING AVG(Salary) > 75000;
++---------+-----------+
+| Region  | AvgSalary |
++---------+-----------+
+| Midwest |     85000 |
++---------+-----------+
 
 	20	States with more than 1 student.
 	        SELECT State, COUNT(*) AS NumStudents FROM Students GROUP BY State HAVING COUNT(*) > 1;
+Empty set (0.00 sec)
 
 	21	Customers who have ordered more than 50 total items.
 	        SELECT CustomerID, SUM(Quanity) AS TotalQty FROM Orders GROUP BY CustomerID HAVING SUM(Quanity) > 50;
++------------+----------+
+| CustomerID | TotalQty |
++------------+----------+
+|          3 |       62 |
++------------+----------+
 
 Joins (Inner, Left)
 	22	Orders with product descriptions (INNER JOIN).
 	        SELECT o.OrderID, o.Quanity, p.Description, o.Price FROM Orders o INNER JOIN Products p ON o.ProductID = p.ProductID;
+| OrderID | Quanity | Description       | Price |
++---------+---------+-------------------+-------+
+|       1 |      10 | Computer Book     | 39.95 |
+|       2 |      15 | Bluetooth Mouse   | 39.95 |
+|       3 |      12 | 24-inch Monitor   | 29.95 |
+|       4 |      13 | Wireless Keyboard | 29.95 |
+|       5 |      20 | Computer Book     | 49.95 |
+|       6 |      30 | Bluetooth Mouse   | 49.95 |
+|       7 |      12 | 24-inch Monitor   | 39.95 |
+|       8 |      18 | Wireless Keyboard | 39.95 |
+|       9 |       5 | Computer Book     | 59.95 |
+|      10 |      15 | Bluetooth Mouse   | 59.95 |
+|      11 |      25 | 24-inch Monitor   | 39.95 |
+|      12 |      40 | Wireless Keyboard | 39.95 |
++---------+---------+-------------------+-------+
 
 	23	Orders with customer names.
 	        SELECT o.OrderID, c.Firstname, c.Lastname, o.Quanity, o.Price FROM Orders o INNER JOIN Customers c ON o.CustomerID = c.CustomerID;
++---------+-----------+----------+---------+-------+
+| OrderID | Firstname | Lastname | Quanity | Price |
++---------+-----------+----------+---------+-------+
+|       1 | Kris      | Smith    |      10 | 39.95 |
+|       2 | Kris      | Smith    |      15 | 39.95 |
+|       3 | Tim       | Davis    |      12 | 29.95 |
+|       4 | Tim       | Davis    |      13 | 29.95 |
+|       5 | Debbie    | Smith    |      20 | 49.95 |
+|       6 | Debbie    | Smith    |      30 | 49.95 |
+|       7 | Debbie    | Smith    |      12 | 39.95 |
+|       8 | Alice     | Parrish  |      18 | 39.95 |
+|       9 | Alice     | Parrish  |       5 | 59.95 |
+|      10 | Alice     | Parrish  |      15 | 59.95 |
+|      11 | Louis     | Johnson  |      25 | 39.95 |
++---------+-----------+----------+---------+-------+
 
 	24	Sales with corresponding employee names (if EmployeeID matches).
 	        SELECT s.SalesID, e.Firstname, e.Lastname, s.Region, s.Amount FROM Sales s INNER JOIN Employees e ON s.EmployeeID = e.EmployeeID;
++---------+-----------+----------+--------+--------+
+| SalesID | Firstname | Lastname | Region | Amount |
++---------+-----------+----------+--------+--------+
+|       1 | Joe       | Johnson  | West   |  39.95 |
+|       2 | Betty     | Allen    | West   |  29.95 |
+|       3 | Joe       | Johnson  | West   |  59.95 |
+|       4 | Billy     | Johnson  | East   |  49.95 |
+|       5 | Betty     | Allen    | East   |  39.95 |
+|       6 | Alice     | Lewis    | South  |  29.95 |
+|       7 | Joe       | Johnson  | South  |  19.95 |
+|       8 | Betty     | Allen    | North  |   9.95 |
+|       9 | Joe       | Johnson  | North  |  49.95 |
+|      10 | Angela    | Jones    | West   |  39.95 |
++---------+-----------+----------+--------+--------+
 
 	25	Students with instructor state (Students → Instructors by name).
 	        SELECT st.Firstname, st.Lastname, st.GPA, i.State AS InstructorState FROM Students st INNER JOIN Instructors i ON st.Instructor = i.Name;
++-----------+----------+------+-----------------+
+| Firstname | Lastname | GPA  | InstructorState |
++-----------+----------+------+-----------------+
+| Jim       | Davis    |  3.4 | Florida         |
+| Julie     | Smith    |    4 | California      |
+| Alonzo    | Johnson  |  3.8 | Florida         |
+| Billy     | Jones    |  3.7 | Arizona         |
+| Linda     | Smythe   |  2.4 | New York        |
+| Mary      | Gibbons  |  3.7 | Arizona         |
++-----------+----------+------+-----------------+
 
 	26	LEFT JOIN to find customers who have never ordered anything.
 	        SELECT c.CustomerID, c.Firstname, c.Lastname FROM Customers c LEFT JOIN Orders o ON c.CustomerID = o.CustomerID WHERE o.CustomerID IS NULL;
++------------+-----------+----------+
+| CustomerID | Firstname | Lastname |
++------------+-----------+----------+
+|          4 | Marty     | Lawson   |
++------------+-----------+----------+
 
 Subqueries
 	27	Employees with salary above the overall average.
 	        SELECT Firstname, Lastname, Salary FROM Employees WHERE Salary > (SELECT AVG(Salary) FROM Employees);
++-----------+----------+--------+
+| Firstname | Lastname | Salary |
++-----------+----------+--------+
+| Joe       | Johnson  |  78000 |
+| Betty     | Allen    |  68000 |
+| Billy     | Johnson  |  88000 |
+| Angela    | Jones    |  85000 |
+| Joey      | Smith    |  88000 |
++-----------+----------+--------+
 
 	28	Students whose GPA is above the average GPA of all students.
     	    SELECT Firstname, Lastname, GPA FROM Students WHERE GPA > (SELECT AVG(GPA) FROM Students);
++-----------+----------+------+
+| Firstname | Lastname | GPA  |
++-----------+----------+------+
+| Julie     | Smith    |    4 |
+| Alonzo    | Johnson  |  3.8 |
+| Billy     | Jones    |  3.7 |
+| Mary      | Gibbons  |  3.7 |
++-----------+----------+------+
 
 	29	Customers who have placed at least one order for product 1.
 	        SELECT * FROM Customers WHERE CustomerID IN (SELECT DISTINCT CustomerID FROM Orders WHERE ProductID = 1);
++------------+-----------+----------+----------------+---------+------------+-------+--------------+
+| CustomerID | Firstname | Lastname | Street         | City    | State      | Zip   | Phone        |
++------------+-----------+----------+----------------+---------+------------+-------+--------------+
+|          1 | Kris      | Smith    | 123 Main       | Phoenix | Arizona    | 85262 | 602-555-1212 |
+|          3 | Debbie    | Smith    | 123 Main       | Phoenix | Arizona    | 85262 | 602-555-1212 |
+|          5 | Alice     | Parrish  | 5553 First Ave | Seattle | Washington | 98188 | 206-555-1212 |
++------------+-----------+----------+----------------+---------+------------+-------+--------------+
 
 	30	Products that have never been ordered.
 	        SELECT * FROM Products WHERE ProductID NOT IN (SELECT DISTINCT ProductID FROM Orders);
++-----------+----------------+-------+
+| ProductID | Description    | Price |
++-----------+----------------+-------+
+|         5 | WiFi Booster   | 49.95 |
+|         6 | Network Router | 39.95 |
+|         7 | Flash Drive    | 29.95 |
++-----------+----------------+-------+
 
 Updates, Inserts, Deletes (Practice on Backup Tables)
 
 	31	Copy all employees into EmployeesBackup.
 	        INSERT INTO EmployeesBackup SELECT * FROM Employees;
+Query OK, 8 rows affected (0.00 sec)
+Records: 8  Duplicates: 0  Warnings: 0
 
 	32	Give everyone in EmployeesBackup a 5% raise.
 	        UPDATE EmployeesBackup SET Salary = Salary * 1.05;
+	Query OK, 8 rows affected (0.00 sec)
+Rows matched: 8  Changed: 8  Warnings: 0
 
 	33	Set bonus to 1000 for Marketing team in EmployeesBackup.
 	        UPDATE EmployeesBackup SET Bonus = 1000 WHERE Team = 'Marketing';
+Query OK, 4 rows affected (0.01 sec)
+Rows matched: 4  Changed: 4  Warnings: 0
 
 	34	Copy all students into StudentsBackup.
 	        INSERT INTO StudentsBackup SELECT * FROM Students;
+Query OK, 6 rows affected (0.00 sec)
+Records: 6  Duplicates: 0  Warnings: 0
 
 	35	Mark StudentsBackup records with GPA below 3.0 as 'Probation'.
 	        UPDATE StudentsBackup SET Status = 'Probation' WHERE GPA < 3.0;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
 
 	36	Delete all EmployeesBackup rows where Years < 2.
 	        DELETE FROM EmployeesBackup WHERE Years < 2;
-
+Query OK, 2 rows affected (0.00 sec)
 
 Five Challenges:
 You need to figure out what query to write and provide the results.
@@ -123,9 +378,15 @@ Scenario 1 – Sales Region Staffing
 The sales director wants to know if every region that appears in the Sales table has at least one employee assigned to that same region in the Employees table.
 Challenge: Write a query that lists any regions that appear in Sales but do not appear in Employees.Region. If your result is empty, it means all sales regions are staffed.
 
+SELECT SalesID FROM Sales EXCEPT SELECT EmployeeID FROM Sales;
+
+
+
 Scenario 2 – Duplicate Customer Addresses
 A marketing analyst suspects some duplicate households in the Customers table where different customers share the exact same address.
 Challenge: Write a query that finds all street/city/state/zip combinations that belong to more than one customer, and show the address along with how many customers share it.
+
+
 
 Scenario 3 – Instructor Coverage for States
 The academic coordinator wants to check whether every state that has at least one student also has at least one instructor located in that state.
