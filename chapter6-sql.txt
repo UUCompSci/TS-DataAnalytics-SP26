@@ -405,4 +405,4 @@ Scenario 5 – Underutilized Employees
 HR wants to find employees who never appear in the Sales table, so they can investigate whether those employees are mis-assigned or underutilized.
 Challenge: Write a query that lists all employees from Employees who do not have any matching row in Sales (based on EmployeeID).
 
-SELECT * FROM Employees e WHERE NOT EXISTS (SELECT 1 FROM Sales s WHERE s.EmployeeID = e.EmployeeID);
+SELECT * FROM Employees ee WHERE NOT EXISTS (SELECT 1 FROM Sales ss WHERE ss.EmployeeID = ee.EmployeeID);
