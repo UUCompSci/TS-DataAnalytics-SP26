@@ -386,17 +386,23 @@ Scenario 2 – Duplicate Customer Addresses
 A marketing analyst suspects some duplicate households in the Customers table where different customers share the exact same address.
 Challenge: Write a query that finds all street/city/state/zip combinations that belong to more than one customer, and show the address along with how many customers share it.
 
+SELECT Street,City,State,Zip, COUNT(DISTINCT CustomerID) AS CustomerCount FROM Customers GROUP BY Street,City,State,Zip HAVING COUNT(DISTINCT CustomerID) > 1;
 
 
 Scenario 3 – Instructor Coverage for States
 The academic coordinator wants to check whether every state that has at least one student also has at least one instructor located in that state.
 Challenge: Write a query that lists any states that appear in Students.State but do not appear in Instructors.State.
 
+ SELECT State FROM Students EXCEPT SELECT State FROM Instructors;
+
 Scenario 4 – Cross-Selling Opportunity
 The product manager believes that customers who buy higher-priced items (Price ≥ 50 in Orders) might be good candidates for a premium upsell.
 Challenge: Write a query that returns each customer who has at least one order where Price >= 50, along with the count of such high-priced orders for that customer.
 
+SELECT CustomerID, COUNT(*) AS OrderCount FROM Orders WHERE Price >= 50 GROUP BY CustomerID;
 
 Scenario 5 – Underutilized Employees
 HR wants to find employees who never appear in the Sales table, so they can investigate whether those employees are mis-assigned or underutilized.
 Challenge: Write a query that lists all employees from Employees who do not have any matching row in Sales (based on EmployeeID).
+
+SELECT * FROM Employees e WHERE NOT EXISTS (SELECT 1 FROM Sales s WHERE s.EmployeeID = e.EmployeeID);
